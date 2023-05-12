@@ -1,0 +1,11 @@
+.spacer__small {
+  height: 8px;
+}
+
+.spacer__medium {
+  height: 16px;
+}
+
+.spacer__large {
+  height: 24px;
+}
