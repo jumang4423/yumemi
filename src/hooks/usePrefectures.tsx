@@ -1,17 +1,28 @@
 import { useState, useEffect } from 'react';
 import { GetPrefectures } from '../apis/prefectures';
-import { Prefecture } from '../types/graph';
+import { Prefecture } from '../types/prefecture';
 
-const usePrefectures = () => {
+interface usePrefecturesReturn {
+  prefectures: Array<Prefecture>;
+  isLoading: boolean;
+}
+
+const usePrefectures = (): usePrefecturesReturn => {
   const [prefectures, setPrefectures] = useState<Array<Prefecture>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const fetchPrefectures = async () => {
+    setIsLoading(true);
+    const res = await GetPrefectures();
+    setPrefectures(res.unwrap());
+    setIsLoading(false);
+  };
 
   useEffect(() => {
-    GetPrefectures().then(res => {
-      setPrefectures(res);
-    });
+    fetchPrefectures();
   }, []);
 
-  return prefectures;
+  return { prefectures, isLoading };
 };
 
 export default usePrefectures;

@@ -1,0 +1,10 @@
+.population_chart_chart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.population_chart_title {
+    margin-bottom: 8px;
+    background-color: #eee;
+}

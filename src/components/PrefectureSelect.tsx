@@ -1,6 +1,6 @@
 import React from 'react';
 import usePrefectures from '../hooks/usePrefectures';
-import { Prefecture } from '../types/graph';
+import { Prefecture } from '../types/prefecture';
 import CheckBox from './atom/CheckBox';
 import HText from './atom/HText';
 import './prefectureSelect.css';
@@ -14,7 +14,7 @@ const PrefectureSelect: React.FC<PrefectureSelect> = ({
   selectedPrefectures,
   setSelectedPrefectures,
 }) => {
-  const prefectures: Array<Prefecture> = usePrefectures();
+  const { prefectures, isLoading } = usePrefectures();
   const handleCheck = (prefecture: Prefecture) => {
     if (selectedPrefectures.some(p => p.prefCode === prefecture.prefCode)) {
       setSelectedPrefectures(
@@ -46,7 +46,7 @@ const PrefectureSelect: React.FC<PrefectureSelect> = ({
   return (
     <>
       <div className="prefecture_select_title">
-        <HText tagNumber={3}> 都道府県</HText>
+        <HText tagNumber={3}>{isLoading ? '読み込み中...' : '都道府県'}</HText>
       </div>
       <div className="prefecture_select_container">
         {prefectureCheckBoxes()}

@@ -1,11 +1,11 @@
 import React from 'react';
-import { PopulationCategory, CategoryLabels } from '../types/graph';
+import { Category, CategoryLabels } from '../types/category';
 import HText from './atom/HText';
 import './categorySelect.css';
 
 interface CategorySelectProps {
-  selectedCategory: PopulationCategory;
-  setSelectedCategory: (category: PopulationCategory) => void;
+  selectedCategory: Category;
+  setSelectedCategory: (category: Category) => void;
 }
 
 const CategorySelect: React.FC<CategorySelectProps> = ({
@@ -20,13 +20,11 @@ const CategorySelect: React.FC<CategorySelectProps> = ({
       <div className="category_select_container">
         <select
           value={selectedCategory}
-          onChange={e =>
-            setSelectedCategory(e.target.value as PopulationCategory)
-          }
+          onChange={e => setSelectedCategory(e.target.value as Category)}
         >
           {Object.entries(CategoryLabels).map(([key, label]) => (
             <option key={key} value={key}>
-              <HText tagNumber={4}>{label}</HText>
+              {label}
             </option>
           ))}
         </select>
