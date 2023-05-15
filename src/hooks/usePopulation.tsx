@@ -1,25 +1,28 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Prefecture } from '../types/prefecture';
 import { GetPopulation } from '../apis/population';
 import { PrefecturePopulation } from '../types/population';
+import { useSetRecoilState } from 'recoil';
+import { IsLoadingAtom } from '../recoil/isLoading';
 
 interface usePopulationReturn {
   populations: Array<PrefecturePopulation>;
-  isLoading: boolean;
 }
 
 const usePopulation = (
   prefectureList: Array<Prefecture>
 ): usePopulationReturn => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const cachedPopulations = useRef<Array<PrefecturePopulation>>([]);
+  const setIsLoading = useSetRecoilState(IsLoadingAtom);
+  const [populations, setPopulations] = useState<Array<PrefecturePopulation>>(
+    []
+  );
 
   useEffect(() => {
     const fetchPopulations = async () => {
       setIsLoading(true);
-      const newPrefectures = structuredClone(cachedPopulations.current);
+      const newPrefectures = structuredClone(populations);
       for (const prefecture of prefectureList) {
-        const cachedPopulation = cachedPopulations.current.find(
+        const cachedPopulation = populations.find(
           p => p.prefCode === prefecture.prefCode
         );
         if (!cachedPopulation) {
@@ -27,14 +30,14 @@ const usePopulation = (
           newPrefectures.push(population.unwrap());
         }
       }
-      cachedPopulations.current = newPrefectures;
+      setPopulations(newPrefectures);
       setIsLoading(false);
     };
 
     fetchPopulations();
-  }, [prefectureList]);
+  }, [prefectureList, populations]);
 
-  return { populations: cachedPopulations.current, isLoading };
+  return { populations };
 };
 
 export default usePopulation;

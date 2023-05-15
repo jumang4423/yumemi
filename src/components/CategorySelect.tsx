@@ -1,17 +1,12 @@
-import React from 'react';
 import { Category, CategoryLabels } from '../types/category';
 import HText from './atom/HText';
+import { useRecoilState } from 'recoil';
 import './categorySelect.css';
+import { SelectedCategoryAtom } from '../recoil/selectedCategory';
 
-interface CategorySelectProps {
-  selectedCategory: Category;
-  setSelectedCategory: (category: Category) => void;
-}
-
-const CategorySelect: React.FC<CategorySelectProps> = ({
-  selectedCategory,
-  setSelectedCategory,
-}) => {
+const CategorySelect = () => {
+  const [selectedCategory, setSelectedCategory] =
+    useRecoilState(SelectedCategoryAtom);
   return (
     <>
       <div className="category_select_title">

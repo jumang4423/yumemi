@@ -1,6 +1,3 @@
-import React from 'react';
-import { Prefecture } from '../../types/prefecture';
-import { Category } from '../../types/category';
 import HText from '../atom/HText';
 import {
   LineChart,
@@ -12,20 +9,17 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+import { useRecoilState } from 'recoil';
 import usePopulation from '../../hooks/usePopulation';
 import { ToChartData } from './populationChartHelpers';
 import './populationChart.css';
+import { SelectedPrefecturesAtom } from '../../recoil/selectedPrefectures';
+import { SelectedCategoryAtom } from '../../recoil/selectedCategory';
 
-interface PopulationChartProps {
-  selectedPrefectures: Array<Prefecture>;
-  selectedCategory: Category;
-}
-
-const PopulationChart: React.FC<PopulationChartProps> = ({
-  selectedPrefectures,
-  selectedCategory,
-}) => {
-  const { populations, isLoading } = usePopulation(selectedPrefectures);
+const PopulationChart = () => {
+  const [selectedPrefectures] = useRecoilState(SelectedPrefecturesAtom);
+  const [selectedCategory] = useRecoilState(SelectedCategoryAtom);
+  const { populations } = usePopulation(selectedPrefectures);
 
   // define chart component
   const chart = (
@@ -63,9 +57,7 @@ const PopulationChart: React.FC<PopulationChartProps> = ({
   return (
     <>
       <div className="population_chart_title">
-        <HText tagNumber={3}>
-          {isLoading ? '読み込み中...' : 'プレビュー'}
-        </HText>
+        <HText tagNumber={3}>プレビュー</HText>
       </div>
       {selectedPrefectures.length > 0 ? chart : noData}
     </>
