@@ -27,6 +27,39 @@ const PopulationChart: React.FC<PopulationChartProps> = ({
 }) => {
   const { populations, isLoading } = usePopulation(selectedPrefectures);
 
+  // define chart component
+  const chart = (
+    <ResponsiveContainer width="100%" height={300}>
+      <LineChart
+        data={ToChartData(populations, selectedCategory, selectedPrefectures)}
+        width={600}
+        height={300}
+        margin={{ top: 10, right: 20, bottom: 20, left: 10 }}
+      >
+        {selectedPrefectures.map(prefecture => (
+          <Line
+            key={prefecture.prefCode}
+            type="monotone"
+            dataKey={prefecture.prefName}
+            strokeWidth={2}
+            stroke={`hsl(${prefecture.prefCode * 25},100%,35%)`}
+          />
+        ))}
+
+        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+        <XAxis dataKey="year" fontSize={10} />
+        <YAxis fontSize={10} />
+        <Tooltip />
+        <Legend fontSize={12} />
+      </LineChart>
+    </ResponsiveContainer>
+  );
+  const noData = (
+    <div>
+      <HText tagNumber={4}>データがありません</HText>
+    </div>
+  );
+
   return (
     <>
       <div className="population_chart_title">
@@ -34,30 +67,7 @@ const PopulationChart: React.FC<PopulationChartProps> = ({
           {isLoading ? '読み込み中...' : 'プレビュー'}
         </HText>
       </div>
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart
-          data={ToChartData(populations, selectedCategory, selectedPrefectures)}
-          width={600}
-          height={300}
-          margin={{ top: 10, right: 20, bottom: 20, left: 10 }}
-        >
-          {selectedPrefectures.map(prefecture => (
-            <Line
-              key={prefecture.prefCode}
-              type="monotone"
-              dataKey={prefecture.prefName}
-              strokeWidth={2}
-              stroke={`hsl(${prefecture.prefCode * 25},100%,35%)`}
-            />
-          ))}
-
-          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-          <XAxis dataKey="year" fontSize={10} />
-          <YAxis fontSize={10} />
-          <Tooltip />
-          <Legend fontSize={12} />
-        </LineChart>
-      </ResponsiveContainer>
+      {selectedPrefectures.length > 0 ? chart : noData}
     </>
   );
 };

@@ -5,6 +5,9 @@
 }
 
 .population_chart_title {
+    display: flex;
     margin-bottom: 8px;
     background-color: #eee;
+    flex-direction: row;
 }
+
