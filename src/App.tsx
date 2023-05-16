@@ -9,7 +9,6 @@ import './app.css';
 function App() {
   return (
     <div>
-      <LoadingScreen />
       <TitleBar />
       <Spacer size={'medium'} />
       <PrefectureSelect />
@@ -17,6 +16,7 @@ function App() {
       <CategorySelect />
       <Spacer size={'medium'} />
       <PopulationChart />
+      <LoadingScreen />
     </div>
   );
 }
