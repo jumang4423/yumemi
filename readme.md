@@ -1,5 +1,7 @@
 # ゆめみ フロントエンド コーディングテスト
 
+[![CI](https://github.com/jumang4423/yumemi/actions/workflows/run_tests.yml/badge.svg?branch=master)](https://github.com/jumang4423/yumemi/actions/workflows/run_tests.yml)
+
 - 株式会社ゆめみさんのフロントエンドコーディングテスト提出用。
 - 都道府県ごとの人口を取得しグラフ化するためのフロントエンド。
 
