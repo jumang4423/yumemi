@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+env:
+  env_var: ${{ vars.VITE_RESAS_API_KEY }}
 
 jobs:
   build:
@@ -19,3 +21,5 @@ jobs:
         run: yarn lint
       - name: Run tests
         run: yarn test
+    env:
+      VITE_RESAS_API_KEY: ${{ secrets.VITE_RESAS_API_KEY }}
