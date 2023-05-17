@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Prefecture } from '../types/prefecture';
 import { GetPopulation } from '../apis/population';
 import { PrefecturePopulation } from '../types/population';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { IsLoadingAtom } from '../recoil/isLoading';
 
 interface usePopulationReturn {
@@ -12,30 +12,46 @@ interface usePopulationReturn {
 const usePopulation = (
   prefectureList: Array<Prefecture>
 ): usePopulationReturn => {
-  const setIsLoading = useSetRecoilState(IsLoadingAtom);
+  const [isLoading, setIsLoading] = useRecoilState(IsLoadingAtom);
   const [populations, setPopulations] = useState<Array<PrefecturePopulation>>(
     []
   );
 
-  useEffect(() => {
-    const fetchPopulations = async () => {
-      setIsLoading(true);
-      const newPrefectures = structuredClone(populations);
-      for (const prefecture of prefectureList) {
-        const cachedPopulation = populations.find(
-          p => p.prefCode === prefecture.prefCode
-        );
-        if (!cachedPopulation) {
-          const population = await GetPopulation(prefecture);
-          newPrefectures.push(population.unwrap());
-        }
-      }
-      setPopulations(newPrefectures);
-      setIsLoading(false);
-    };
+  const getPrefecturesToFetch = (
+    prefectureList: Array<Prefecture>,
+    populations: Array<PrefecturePopulation>
+  ): Array<Prefecture> => {
+    return prefectureList.filter(
+      prefecture => !populations.find(p => p.prefCode === prefecture.prefCode)
+    );
+  };
 
-    fetchPopulations();
-  }, [prefectureList, populations]);
+  const fetchPopulations = async (
+    prefecturesToFetch: Array<Prefecture>,
+    populations: Array<PrefecturePopulation>
+  ) => {
+    setIsLoading(true);
+    const newPopulations = await Promise.all(
+      prefecturesToFetch.map(async prefecture => {
+        const population = await GetPopulation(prefecture);
+        return population.unwrap();
+      })
+    );
+
+    setPopulations([...populations, ...newPopulations]);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    const prefecturesToFetch = getPrefecturesToFetch(
+      prefectureList,
+      populations
+    );
+
+    if (prefecturesToFetch.length && !isLoading) {
+      fetchPopulations(prefecturesToFetch, populations);
+    }
+  }, [prefectureList]);
 
   return { populations };
 };

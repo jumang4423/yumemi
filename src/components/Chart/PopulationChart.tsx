@@ -21,6 +21,14 @@ const PopulationChart = () => {
   const [selectedCategory] = useRecoilState(SelectedCategoryAtom);
   const { populations } = usePopulation(selectedPrefectures);
 
+  const getLineColor = (prefCode: number) => {
+    const hue = prefCode * 28;
+    const saturation = 50;
+    const lightness = (prefCode / 10) * 10 + 40;
+
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  };
+
   // define chart component
   const chart = (
     <ResponsiveContainer width="100%" height={300}>
@@ -36,7 +44,7 @@ const PopulationChart = () => {
             type="monotone"
             dataKey={prefecture.prefName}
             strokeWidth={2}
-            stroke={`hsl(${prefecture.prefCode * 25},100%,35%)`}
+            stroke={getLineColor(prefecture.prefCode)}
           />
         ))}
 
@@ -48,6 +56,7 @@ const PopulationChart = () => {
       </LineChart>
     </ResponsiveContainer>
   );
+
   const noData = (
     <div>
       <HText tagNumber={4}>データがありません</HText>
