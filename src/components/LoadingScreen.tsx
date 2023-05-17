@@ -6,9 +6,8 @@ import './loadingScreen.css';
 const LoadingScreen = () => {
   const [isLoading] = useRecoilState(IsLoadingAtom);
 
-  if (!isLoading) return null;
   return (
-    <div className="loading_screen">
+    <div className={`loading_screen ${!isLoading && 'loading_screen--hidden'}`}>
       <Loader />
     </div>
   );

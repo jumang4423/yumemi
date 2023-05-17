@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>readme.html</title>
+<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8"/>
+<link rel="stylesheet" type="text/css" media="all" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"  />
+<link rel="stylesheet" type="text/css" media="all" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css"  /><meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'><style> body { box-sizing: border-box; max-width: 740px; width: 100%; margin: 40px auto; padding: 0 10px; } </style><script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script><script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js'></script><script>document.addEventListener('DOMContentLoaded', () => { document.body.classList.add('markdown-body'); document.querySelectorAll('pre[lang] > code').forEach((code) => { code.classList.add(code.parentElement.lang); }); document.querySelectorAll('pre > code').forEach((code) => { hljs.highlightBlock(code); }); });</script>
+</head>
+
+<body>
+
+<h1 id="ゆめみ-フロントエンド-コーディングテスト">ゆめみ フロントエンド
+コーディングテスト</h1>
+<ul>
+<li>株式会社ゆめみさんのフロントエンドコーディングテスト提出用。</li>
+<li>都道府県ごとの人口を取得しグラフ化するためのフロントエンド。</li>
+</ul>
+<h2 id="setup">Setup</h2>
+<ol type="1">
+<li><p>node v18をインストール</p></li>
+<li><p>このrepositoryをcloneする</p></li>
+</ol>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="op">&lt;</span>yumemi github repo url<span class="op">&gt;</span></span></code></pre></div>
+<ol start="3" type="1">
+<li>npmパッケージをインストール</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> yumemi</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install</span></code></pre></div>
+<ol start="4" type="1">
+<li>APIキーの設定</li>
+</ol>
+<ul>
+<li><a href="https://opendata.resas-portal.go.jp/">resas
+api</a>にてAPIを発行する</li>
+<li>.envの作成（.env.exampleを参考に）</li>
+</ul>
+<h2 id="npm-scripts">NPM Scripts</h2>
+<ul>
+<li>開発モードの起動</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev</span></code></pre></div>
+<ul>
+<li>ビルドの実行</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build</span></code></pre></div>
+<ul>
+<li>テストの実行</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run test</span></code></pre></div>
+<ul>
+<li>コードチェック</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run lint</span></code></pre></div>
+<ul>
+<li>prettierの実行</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run format</span></code></pre></div>
+<h2 id="github-actions">Github Actions</h2>
+<ul>
+<li>自動テスト実行(.github/workflows/run_tests.yml)
+githubのmasterにpushした際にgithub actionsでテストが実行されます。</li>
+</ul>
+<h2 id="ディレクトリ説明">ディレクトリ説明</h2>
+<ul>
+<li>apis apisを呼び出す関数を格納するディレクトリ</li>
+<li>components
+ページで使われるReactコンポーネントを格納するディレクトリ</li>
+<li>hooks カスタムフックを格納するディレクトリ</li>
+<li>recoil recoilのステート定義を格納するディレクトリ</li>
+<li>tools 便利な関数を格納するディレクトリ</li>
+<li>types typescriptの型を定義するディレクトリ</li>
+</ul>
+<h2 id="使用技術">使用技術</h2>
+<ul>
+<li>node v18</li>
+<li>Vite.js</li>
+<li>Vitest</li>
+<li>TypeScript</li>
+<li>Recoil</li>
+<li>Prettier</li>
+<li>ESLint</li>
+<li>Rechart.js</li>
+</ul>
+
+</body>
+</html>

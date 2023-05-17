@@ -17,9 +17,9 @@ describe('GetPrefectures', () => {
     const result = await GetPrefectures();
     test('result is Ok', () => expect(result).toBeInstanceOf(Ok));
     const OkValue = result.val as Array<Prefecture>;
-    test('result value has proper length', () =>
+    test('value has proper length', () =>
       expect(OkValue.length).toBe(PREFECTURES_NUMBER_JAPAN));
-    test('result value has proper first 5 prefectures', () =>
+    test('value has proper first 5 prefectures', () =>
       expect(OkValue.slice(0, 5)).toEqual(FIRST_5_PREFECTURES));
   });
 });
