@@ -10,7 +10,7 @@ export const ToChartData = (
   populations: Array<PrefecturePopulation>,
   selectedCategory: Category,
   selectedPrefectures: Array<Prefecture>
-) => {
+): Array<PrefecturePopulation> => {
   if (populations.length === 0) return [];
 
   const filteredPopulations = filterPopulations(
@@ -57,8 +57,16 @@ export const createYearData = (
 export const filterPopulations = (
   populations: Array<PrefecturePopulation>,
   selectedPrefectures: Array<Prefecture>
-) => {
+): Array<PrefecturePopulation> => {
   return populations.filter(population =>
     selectedPrefectures.some(p => p.prefCode === population.prefCode)
   );
+};
+
+export const GetLineColor = (prefCode: number): string => {
+  const hue = prefCode * 28;
+  const saturation = 50;
+  const lightness = (prefCode / 10) * 10 + 40;
+
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 };

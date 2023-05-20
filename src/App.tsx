@@ -6,7 +6,7 @@ import PopulationChart from './components/Chart/PopulationChart';
 import LoadingScreen from './components/LoadingScreen';
 import './app.css';
 
-function App() {
+const App = () => {
   return (
     <>
       <TitleBar />
@@ -19,6 +19,6 @@ function App() {
       <LoadingScreen />
     </>
   );
-}
+};
 
 export default App;

@@ -21,24 +21,26 @@ const PrefectureSelect = () => {
     },
     [selectedPrefectures]
   );
-  const prefectureCheckBoxes = (prefectures: Array<Prefecture>) =>
-    prefectures.map(prefecture => {
-      const checked = selectedPrefectures.some(
-        selectedPrefecture =>
-          selectedPrefecture.prefCode === prefecture.prefCode
-      );
-      return (
-        <div key={prefecture.prefCode}>
-          <CheckBox
-            title={prefecture.prefName}
-            checked={checked}
-            onChange={() => {
-              handleCheck(prefecture);
-            }}
-          />
-        </div>
-      );
-    });
+  const views = {
+    prefectureCheckBoxes: (prefectures: Array<Prefecture>) =>
+      prefectures.map(prefecture => {
+        const checked = selectedPrefectures.some(
+          selectedPrefecture =>
+            selectedPrefecture.prefCode === prefecture.prefCode
+        );
+        return (
+          <div key={prefecture.prefCode}>
+            <CheckBox
+              title={prefecture.prefName}
+              checked={checked}
+              onChange={() => {
+                handleCheck(prefecture);
+              }}
+            />
+          </div>
+        );
+      }),
+  };
 
   return (
     <>
@@ -46,7 +48,7 @@ const PrefectureSelect = () => {
         <HText tagNumber={3}>都道府県</HText>
       </div>
       <div className="prefecture_select_container">
-        {prefectureCheckBoxes(prefectures)}
+        {views.prefectureCheckBoxes(prefectures)}
       </div>
     </>
   );
